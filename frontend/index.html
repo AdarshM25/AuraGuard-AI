@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AuraGuard AI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- 🌙 THEME TOGGLE -->
+        <button id="themeToggle" class="toggle">☀️ Light Mode</button>
+
+        <h1>🛡️ AuraGuard AI</h1>
+        <p>Detect pirated sports videos instantly</p>
+
+        <input type="file" id="file1"><br>
+        <input type="file" id="file2"><br>
+
+        <button onclick="upload()">Scan for Piracy 🔍</button>
+
+        <!-- 🔄 LOADER -->
+        <div id="loader" class="loader" style="display:none;"></div>
+
+        <!-- 📊 RESULT CARD -->
+        <div id="resultCard" class="card" style="display:none;">
+            <h2 id="statusText"></h2>
+            <p id="percentageText"></p>
+        </div>
+
+        <button onclick="generateNotice()">Generate Takedown</button>
+        <p id="notice"></p>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
